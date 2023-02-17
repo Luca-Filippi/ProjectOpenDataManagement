@@ -201,8 +201,7 @@ router.get("/application/data", async (req, res) => {
 router.post("/application/insertdata", async (req, res) => {
     try{
         const mongo = db.getDb();
-        //let payload = jwt.getPayload(token);
-        let payload = await mongo.collection("Users").findOne({"username" : "luca-filippi"});
+        let payload = jwt.getPayload(token);
         let user = await mongo.collection("Users").findOne({'username': payload.username});
         if(user !== null && user !== undefined) {
             checkData(req)
@@ -285,8 +284,7 @@ router.post("/application/insertdata", async (req, res) => {
 router.delete("/application/deletedata/:VarCheckId", async (req, res) => {
     try {
         const mongo = db.getDb();
-        //let payload = jwt.getPayload(token);
-        let payload = await mongo.collection("Users").findOne({"username" : "luca-filippi"});
+        let payload = jwt.getPayload(token);
         let user = await mongo.collection("Users").findOne({'username': payload.username});
         if(user !== null && user !== undefined) {
             let varCheck = await mongo.collection("VarCheck").findOne({"VarCheckId" : req.params.VarCheckId});
